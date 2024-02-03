@@ -1,0 +1,119 @@
+## 0.1 - Version 0.1 - Prototype
+
+==Core Mechanics - Interaction==
+
+[] Highlight interactive objects on hover (visual change, outline, etc.).
+[] Define interactive objects within the environment (sprites, text, etc.).
+[] Handle interaction clicks: display object description, trigger events, etc.
+
+== Basic Inventory System ==
+
+[] Picking up and storing items.
+[] Simple dialog system: Text boxes for character interactions.
+[] Implement item pickup mechanics (collision, triggering pickup event).
+[] Store picked-up items in an inventory system (array, data structure).
+[] Display a basic inventory UI showing collected items.
+
+== Assets ==
+
+[] Placeholder backgrounds and sprites.
+[] Basic sound effects for clicks and interactions.
+
+== Development Environment ==
+
+[] Project setup with Phaser 3 and necessary plugins.
+[] Version control system (Git) in place.
+
+== Simple Dialog System ==
+
+[] Create a system for displaying character dialogues in text boxes.
+[] Include character portraits and names for immersion.
+[] Allow clicking through dialogue or auto-advancement options.
+
+## 0.2 - Version 0.2 - Basic Gameplay
+
+Enhanced Mechanics:
+Object examination: Detailed descriptions for interactive objects.
+Item usage: Using items on other objects or in the environment.
+Simple puzzles: Basic logic puzzles requiring item interaction.
+
+Inventory management: 
+Organize and use items from the inventory.
+
+Assets:
+Finalized or improved backgrounds and sprites.
+Music and ambient sounds.
+
+User Interface:
+Inventory UI to display and manage items.
+Character portrait and dialogue box enhancements.
+
+Object Examination:
+Allow players to examine interactive objects for detailed descriptions.
+Display descriptions as text boxes or context menus.
+Consider adding visual cues to indicate examinable objects.
+
+Item Usage:
+Implement logic for using items on other objects or in the environment.
+Define clear item interactions and their effects (unlock doors, solve puzzles).
+Provide visual feedback for successful item usage (animations, sound effects).
+
+Simple Puzzles:
+Design and implement basic logic puzzles requiring item usage and interaction.
+Start with single-step puzzles and gradually increase complexity.
+Provide hints or clues to help players solve puzzles (optional).
+
+Inventory Management:
+Implement options for organizing and using items from the inventory.
+Allow dropping, combining, and using items within the inventory.
+Enhance the inventory UI for better usability and information display.
+
+Assets:
+Finalize or improve backgrounds, sprites, and UI elements.
+Consider adding animations for key objects and character interactions.
+Incorporate music and ambient sounds to create atmosphere.
+User Interface:
+
+Design and implement a clear and intuitive inventory UI.
+Improve character portrait and dialogue box designs for readability.
+Consider adding additional UI elements like menus, maps, or quest logs (optional).
+
+## 0.3 - Version 0.3 - Content Expansion
+
+More Puzzles & Content:
+Implement multiple puzzles throughout the game.
+Expand the game world with multiple interconnected areas.
+Add more characters and interactions.
+Story progression with clear objectives and challenges.
+
+Polishing & Refinement:
+Animations and visual effects for interactions and puzzles.
+Sound effects and music adjustments for better atmosphere.
+User interface polish and accessibility improvements.
+
+More Puzzles & Content:
+
+Create more diverse and challenging puzzles throughout the game world.
+Expand the game world with multiple interconnected areas to explore.
+Introduce more characters with unique interactions and storylines.
+Develop a clear narrative with objectives, motivations, and progression.
+Polishing & Refinement:
+
+Add animations and visual effects to enhance interaction and puzzle solving.
+Adjust sound effects and music for better immersion and feedback.
+Polish the user interface for user-friendliness and accessibility.
+Implement feedback systems for player actions and interactions.
+
+
+
+## 0.4 - Version 0.4 - Final Touches
+
+Testing & Deployment:
+Thorough playtesting and bug fixing.
+Mobile compatibility testing (if applicable).
+Deployment preparation and version control management.
+
+Promotion & Distribution:
+Create promotional materials (screenshots, trailers).
+Choose deployment platform (web, mobile app stores).
+Launch the game and gather player feedback.
