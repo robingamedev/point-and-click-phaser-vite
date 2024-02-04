@@ -2,7 +2,7 @@ import { Scene } from 'phaser';
 import { createHighlightableSprite } from '../objects/createHighlightableSprite';
 import { setObjectToStore, setArrayToStore, getObjectFromStore, getArrayFromStore, checkIfValueExistsInStore } from '../utils/localStorageTools';
 import { initInventory, addInventory } from '../objects/inventory';
-import { textStyle } from '../utils/other';
+import { textTitleStyle, textBodyStyle } from '../utils/other';
 
 interface PlayerData {
     text: string;
@@ -39,13 +39,28 @@ export class Game extends Scene {
         this.load.image('logos', 'assets/test-logos-0.png');
     }
 
-    setText() { 
+    setText() {
 
-        this.msgText = this.add.text(512, 100, 'I change based on context', textStyle);
-        this.msgText.setOrigin(0.5);
+        const msgTextStyles = {
+            ...textBodyStyle,
+            wordWrap:  { 
+                width: 900, 
+                useAdvancedWrap: true  
+            },
+            align: 'left'
+        }
 
-        this.sceneText = this.add.text(512, 384, 'Click on the 5th one', textStyle);
+        const extraText = "Precise control over transformations: It allows granular control over how game objects rotate and scale, enabling fine-tuning of their visual behavior. Creative effects: It can be used to achieve unique visual effects and animations by manipulating the origin point.";
+
+        this.msgText = this.add.text(60, 500, `I change based ${extraText}`, msgTextStyles);
+        this.msgText.setOrigin(0);
+
+        this.msgText.setScale(1, 1.25);
+
+        this.sceneText = this.add.text(512, 384, 'Click on the 5th one', textTitleStyle);
         this.sceneText.setOrigin(0.5);
+
+
 
     }
 
@@ -147,12 +162,12 @@ export class Game extends Scene {
             if (doesSprite2Exist) {
                 this.msgText.setText('Sprite2 Exists');
                 // TODO: Use new addToInventory function here
-                addInventory(this, { 'Sprite2': 1});
+                addInventory(this, { 'Sprite2': 1 });
 
             }
             if (doesSprite3Exist) {
                 this.msgText.setText('Sprite3 Exists');
-                addInventory(this, {'Sprite3': 1});
+                addInventory(this, { 'Sprite3': 1 });
 
             }
 
@@ -174,7 +189,7 @@ export class Game extends Scene {
         })
     }
 
-  
+
 
     create() {
 
@@ -194,15 +209,15 @@ export class Game extends Scene {
         this.gameplay_map = this.add.image(1050, 530, 'gameplay_map');
 
         // align origin
-        this.gameplay_gameUI.setOrigin(0,0);
-        this.gameplay_inventory.setOrigin(0,0)
-        this.gameplay_map.setOrigin(0,0)
-        this.gameplay_textarea.setOrigin(0,0)
+        this.gameplay_gameUI.setOrigin(0, 0);
+        this.gameplay_inventory.setOrigin(0, 0)
+        this.gameplay_map.setOrigin(0, 0)
+        this.gameplay_textarea.setOrigin(0, 0)
 
         // methods
         this.setText();
         this.setSprites();
-        
+
 
         initInventory(this);
 

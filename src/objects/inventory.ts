@@ -1,5 +1,5 @@
 import { getObjectFromStore, setObjectToStore, checkIfValueExistsInStore } from "../utils/localStorageTools";
-import { textStyle } from '../utils/other';
+import { textTitleStyle } from '../utils/other';
 
 
 export function initInventory(scene: Phaser.Scene) {
@@ -15,7 +15,7 @@ export function initInventory(scene: Phaser.Scene) {
     }
 
     // 3 - update the game text
-    scene.inventoryText = scene.add.text(512, 500, 'inventory', textStyle)
+    scene.inventoryText = scene.add.text(1000, 32, 'inventory', textTitleStyle)
 
 }
 
