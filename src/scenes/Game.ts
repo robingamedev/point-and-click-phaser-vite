@@ -22,6 +22,10 @@ export class Game extends Scene {
     sprite5: Phaser.GameObjects.Sprite;
     sprite6: Phaser.GameObjects.Sprite;
     background: Phaser.GameObjects.Image;
+    gameplay_gameUI: Phaser.GameObjects.Image;
+    gameplay_inventory: Phaser.GameObjects.Image;
+    gameplay_map: Phaser.GameObjects.Image;
+    gameplay_textarea: Phaser.GameObjects.Image;
     msgText: Phaser.GameObjects.Text;
     sceneText: Phaser.GameObjects.Text;
     inventoryText: Phaser.GameObjects.Text;
@@ -176,13 +180,29 @@ export class Game extends Scene {
 
         this.playerInventory = [];
         this.camera = this.cameras.main;
-        this.camera.setBackgroundColor(0x00ff00);
-        
-        this.background = this.add.image(640, 360, 'background');
-        this.background.alpha = 0.7;
+        this.camera.setBackgroundColor(0xff0000);
 
+
+        this.background = this.add.image(640, 360, 'background');
+        this.background.alpha = 0.4;
+
+
+        // add the gameplay sprites
+        this.gameplay_gameUI = this.add.image(30, 20, 'gameplay_gameUI');
+        this.gameplay_inventory = this.add.image(950, 30, 'gameplay_inventory');
+        this.gameplay_textarea = this.add.image(20, 480, 'gameplay_textarea');
+        this.gameplay_map = this.add.image(1050, 530, 'gameplay_map');
+
+        // align origin
+        this.gameplay_gameUI.setOrigin(0,0);
+        this.gameplay_inventory.setOrigin(0,0)
+        this.gameplay_map.setOrigin(0,0)
+        this.gameplay_textarea.setOrigin(0,0)
+
+        // methods
         this.setText();
         this.setSprites();
+        
 
         initInventory(this);
 

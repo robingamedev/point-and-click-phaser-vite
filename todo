@@ -15,20 +15,21 @@
 
 == Assets ==
 
-[] Lay out the main screen
+[x] Lay out the main screen
 * https://store.steampowered.com/app/1405440/The_Horror_Of_Salazar_House/
 * Cube Escape
 * Shadowrun
 
 [] Lay out the inventory
 [] Lay out the text area
-[] Placeholder backgrounds and sprites.
+[] Placeholder backgrounds
+[] Placeholder map
 [] Basic sound effects for clicks and interactions.
 
 == Development Environment ==
 
-[] Project setup with Phaser 3 and necessary plugins.
-[] Version control system (Git) in place.
+[x] Project setup with Phaser 3 and necessary plugins.
+[x] Version control system (Git) in place.
 
 == Simple Dialog System ==
 

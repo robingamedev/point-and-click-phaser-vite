@@ -33,6 +33,12 @@ export class Preloader extends Scene
         this.load.setPath('assets');
 
         this.load.image('logo', 'logo.png');
+        this.load.image('gameplay_gameUI', 'gameplay/gameUI.png');
+        this.load.image('gameplay_inventory', 'gameplay/inventory.png');
+        this.load.image('gameplay_map', 'gameplay/map.png');
+        this.load.image('gameplay_textarea', 'gameplay/textarea.png');
+
+
     }
 
     create ()
