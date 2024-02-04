@@ -1,18 +1,34 @@
 import { Scene } from 'phaser';
 import { createHighlightableSprite } from '../objects/createHighlightableSprite';
+import { setObjectToStore, setArrayToStore, getObjectFromStore, getArrayFromStore, checkIfValueExistsInStore } from '../utils/localStorageTools';
+
+interface PlayerData {
+    text: string;
+    flag: boolean;
+    level: number;
+};
 
 export class Game extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
+    sprite0: Phaser.GameObjects.Sprite;
     sprite1: Phaser.GameObjects.Sprite;
+    sprite2a: Phaser.GameObjects.Sprite;
+    sprite2b: Phaser.GameObjects.Sprite;
+    sprite2c: Phaser.GameObjects.Sprite;
+    sprite3: Phaser.GameObjects.Sprite;
+    sprite4: Phaser.GameObjects.Sprite;
+    sprite5: Phaser.GameObjects.Sprite;
+    sprite6: Phaser.GameObjects.Sprite;
     background: Phaser.GameObjects.Image;
     msg_text: Phaser.GameObjects.Text;
+    scene_text: Phaser.GameObjects.Text;
 
     constructor() {
         super('Game');
     }
 
     preload() {
-        this.load.image('logos', 'assets/test-logos-0.png');        
+        this.load.image('logos', 'assets/test-logos-0.png');
     }
 
     create() {
@@ -32,29 +48,142 @@ export class Game extends Scene {
             frameHeight: 128
         });
 
-        const sprite0 = createHighlightableSprite(this, 100, 300, 'logos', 0);
-        const sprite1 = createHighlightableSprite(this, 200, 300, 'logos', 1);
-        const sprite2 = createHighlightableSprite(this, 300, 300, 'logos', 2);
-        const sprite3 = createHighlightableSprite(this, 400, 300, 'logos', 3);
-        const sprite4 = createHighlightableSprite(this, 500, 300, 'logos', 4);
-        const sprite5 = createHighlightableSprite(this, 600, 300, 'logos', 5);
-
-
-
-        this.msg_text = this.add.text(512, 384, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
+        // stage Text
+        this.msg_text = this.add.text(512, 100, 'I change based on context', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         });
         this.msg_text.setOrigin(0.5);
 
-
-
-
-        this.input.once('pointerdown', () => {
-
-            this.scene.start('GameOver');
-
+        this.scene_text = this.add.text(512, 384, 'Click on the 5th one', {
+            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
+            stroke: '#000000', strokeThickness: 8,
+            align: 'center'
         });
+        this.scene_text.setOrigin(0.5);
+
+
+        // Sprites
+        this.sprite0 = createHighlightableSprite(this, 100, 300, 'logos', 0);
+        this.sprite1 = createHighlightableSprite(this, 250, 300, 'logos', 1);
+        this.sprite2a = createHighlightableSprite(this, 400, 300, 'logos', 11);
+        this.sprite2b = createHighlightableSprite(this, 400, 400, 'logos', 11);
+        this.sprite2c = createHighlightableSprite(this, 400, 500, 'logos', 11);
+        this.sprite3 = createHighlightableSprite(this, 550, 300, 'logos', 12);
+        this.sprite4 = createHighlightableSprite(this, 700, 300, 'logos', 13);
+        this.sprite5 = createHighlightableSprite(this, 850, 300, 'logos', 5);
+        this.sprite6 = createHighlightableSprite(this, 1000, 300, 'logos', 6);
+
+        // disappear 
+        this.sprite0.on('pointerup', () => {
+            this.sprite0.destroy();
+        })
+
+        // add to text
+        this.sprite1.on('pointerup', () => {
+            this.msg_text.setText('Hello Phaser World');
+        })
+
+        // add to inventory 1 - defaults
+        this.sprite2a.on('pointerup', () => {
+
+            // Save player data
+            const playerData: PlayerData = {
+                text: 'this value is saved',
+                flag: true,
+                level: 10
+            };
+
+            setObjectToStore('sprite2', playerData)
+            playerData
+            this.msg_text.setText('Sprite2 is saved');
+        })
+
+        // add to inventory 1 - change value to false
+
+        this.sprite2b.on('pointerup', () => {
+
+            setObjectToStore('sprite2', {
+                flag: false,
+            })
+
+            this.msg_text.setText('Sprite2 flag is false');
+        })
+
+        // add to inventory 1 - change text to different value
+        this.sprite2c.on('pointerup', () => {
+
+            setObjectToStore('sprite2', {
+                text: 'this value is now different than the previous one',
+            })
+
+            this.msg_text.setText('Sprite2 is now different');
+        })
+
+
+        // add to inventory 2
+        this.sprite3.on('pointerup', () => {
+
+            // Save player data
+            const playerData: PlayerData = {
+                text: 'this value is saved',
+                flag: false,
+                level: 100
+            }
+
+            setObjectToStore('sprite3', playerData);
+
+            this.msg_text.setText('Sprite3 is saved');
+        })
+
+        // add conditonal
+        this.sprite4.on('pointerup', () => {
+            const doesSprite2Exist = checkIfValueExistsInStore('sprite2');
+            const doesSprite3Exist = checkIfValueExistsInStore('sprite3');
+
+            if (!doesSprite2Exist && !doesSprite3Exist) {
+                console.log("Sprite 2 or 3 Doesn't exist!")
+                this.msg_text.setText("Sprite 2 or 3 Doesn't exist");
+            }
+            if (doesSprite2Exist) {
+                this.msg_text.setText('Sprite2 Exists');
+                setArrayToStore('inventory', ['Sprite2'])
+            }
+            if (doesSprite3Exist) {
+                this.msg_text.setText('Sprite3 Exists');
+                setArrayToStore('inventory', ['Sprite3'])
+            }
+
+
+        })
+
+        // next level
+        this.sprite5.on('pointerup', () => {
+            this.scene.start('GameOver');
+        })
+
+
+        // clear local stroage
+        this.sprite6.on('pointerup', () => {
+            setObjectToStore('sprite2', null);
+            setObjectToStore('sprite3', null);
+            setArrayToStore('inventory', null);
+            this.msg_text.setText('clear it out');
+        })
+
+
+        // button.on('pointerdown', () => {
+        //     text.setText('Button clicked!');
+        //   });
+
+
+
+
+        // this.input.once('pointerdown', () => {
+
+        //     this.scene.start('GameOver');
+
+        // });
     }
 }

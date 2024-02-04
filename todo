@@ -8,10 +8,9 @@
 
 == Basic Inventory System ==
 
-[] Picking up and storing items.
-[] Simple dialog system: Text boxes for character interactions.
-[] Implement item pickup mechanics (collision, triggering pickup event).
-[] Store picked-up items in an inventory system (array, data structure).
+[x] Picking up and storing items.
+[x] Simple dialog system: Text boxes for character interactions.
+[x] Store picked-up items in an inventory system (array, data structure).
 [] Display a basic inventory UI showing collected items.
 
 == Assets ==

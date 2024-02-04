@@ -16,7 +16,6 @@ export class MainMenu extends Scene {
         // https://phaser.io/examples/v3/view/input/pixel-perfect/image-with-lots-of-alpha
         // this.logo = this.add.sprite(512, 300, 'logo');
 
-        this.logo = createHighlightableSprite(this, 512, 300, 'logo');
 
         this.title = this.add.text(512, 460, 'Main Menu', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
@@ -24,9 +23,12 @@ export class MainMenu extends Scene {
             align: 'center'
         }).setOrigin(0.5);
 
+        
+        // LOGO
+        this.logo = createHighlightableSprite(this, 512, 300, 'logo');
+
         this.logo.on('pointerup', () => {
             this.scene.start('Game');
-            
         })
   
     }
