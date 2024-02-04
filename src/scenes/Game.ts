@@ -1,6 +1,8 @@
 import { Scene } from 'phaser';
 import { createHighlightableSprite } from '../objects/createHighlightableSprite';
 import { setObjectToStore, setArrayToStore, getObjectFromStore, getArrayFromStore, checkIfValueExistsInStore } from '../utils/localStorageTools';
+import { initInventory, addInventory } from '../objects/inventory';
+import { textStyle } from '../utils/other';
 
 interface PlayerData {
     text: string;
@@ -20,8 +22,10 @@ export class Game extends Scene {
     sprite5: Phaser.GameObjects.Sprite;
     sprite6: Phaser.GameObjects.Sprite;
     background: Phaser.GameObjects.Image;
-    msg_text: Phaser.GameObjects.Text;
-    scene_text: Phaser.GameObjects.Text;
+    msgText: Phaser.GameObjects.Text;
+    sceneText: Phaser.GameObjects.Text;
+    inventoryText: Phaser.GameObjects.Text;
+    playerInventory: any;
 
     constructor() {
         super('Game');
@@ -31,14 +35,17 @@ export class Game extends Scene {
         this.load.image('logos', 'assets/test-logos-0.png');
     }
 
-    create() {
-        this.camera = this.cameras.main;
-        this.camera.setBackgroundColor(0x00ff00);
+    setText() { 
 
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setAlpha(0.5);
+        this.msgText = this.add.text(512, 100, 'I change based on context', textStyle);
+        this.msgText.setOrigin(0.5);
 
+        this.sceneText = this.add.text(512, 384, 'Click on the 5th one', textStyle);
+        this.sceneText.setOrigin(0.5);
 
+    }
+
+    setSprites() {
         // Turning logo tiles into sprites
         const tiles = this.textures.get('logos');
         const base = tiles.get();
@@ -47,22 +54,6 @@ export class Game extends Scene {
             frameWidth: 128,
             frameHeight: 128
         });
-
-        // stage Text
-        this.msg_text = this.add.text(512, 100, 'I change based on context', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        });
-        this.msg_text.setOrigin(0.5);
-
-        this.scene_text = this.add.text(512, 384, 'Click on the 5th one', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        });
-        this.scene_text.setOrigin(0.5);
-
 
         // Sprites
         this.sprite0 = createHighlightableSprite(this, 100, 300, 'logos', 0);
@@ -74,6 +65,9 @@ export class Game extends Scene {
         this.sprite4 = createHighlightableSprite(this, 700, 300, 'logos', 13);
         this.sprite5 = createHighlightableSprite(this, 850, 300, 'logos', 5);
         this.sprite6 = createHighlightableSprite(this, 1000, 300, 'logos', 6);
+    }
+
+    setSpriteEvents() {
 
         // disappear 
         this.sprite0.on('pointerup', () => {
@@ -82,7 +76,7 @@ export class Game extends Scene {
 
         // add to text
         this.sprite1.on('pointerup', () => {
-            this.msg_text.setText('Hello Phaser World');
+            this.msgText.setText('Hello Phaser World');
         })
 
         // add to inventory 1 - defaults
@@ -97,7 +91,7 @@ export class Game extends Scene {
 
             setObjectToStore('sprite2', playerData)
             playerData
-            this.msg_text.setText('Sprite2 is saved');
+            this.msgText.setText('Sprite2 is saved');
         })
 
         // add to inventory 1 - change value to false
@@ -108,7 +102,7 @@ export class Game extends Scene {
                 flag: false,
             })
 
-            this.msg_text.setText('Sprite2 flag is false');
+            this.msgText.setText('Sprite2 flag is false');
         })
 
         // add to inventory 1 - change text to different value
@@ -118,7 +112,7 @@ export class Game extends Scene {
                 text: 'this value is now different than the previous one',
             })
 
-            this.msg_text.setText('Sprite2 is now different');
+            this.msgText.setText('Sprite2 is now different');
         })
 
 
@@ -134,7 +128,7 @@ export class Game extends Scene {
 
             setObjectToStore('sprite3', playerData);
 
-            this.msg_text.setText('Sprite3 is saved');
+            this.msgText.setText('Sprite3 is saved');
         })
 
         // add conditonal
@@ -144,15 +138,18 @@ export class Game extends Scene {
 
             if (!doesSprite2Exist && !doesSprite3Exist) {
                 console.log("Sprite 2 or 3 Doesn't exist!")
-                this.msg_text.setText("Sprite 2 or 3 Doesn't exist");
+                this.msgText.setText("Sprite 2 or 3 Doesn't exist");
             }
             if (doesSprite2Exist) {
-                this.msg_text.setText('Sprite2 Exists');
-                setArrayToStore('inventory', ['Sprite2'])
+                this.msgText.setText('Sprite2 Exists');
+                // TODO: Use new addToInventory function here
+                addInventory(this, { 'Sprite2': 1});
+
             }
             if (doesSprite3Exist) {
-                this.msg_text.setText('Sprite3 Exists');
-                setArrayToStore('inventory', ['Sprite3'])
+                this.msgText.setText('Sprite3 Exists');
+                addInventory(this, {'Sprite3': 1});
+
             }
 
 
@@ -168,9 +165,30 @@ export class Game extends Scene {
         this.sprite6.on('pointerup', () => {
             setObjectToStore('sprite2', null);
             setObjectToStore('sprite3', null);
-            setArrayToStore('inventory', null);
-            this.msg_text.setText('clear it out');
+            setObjectToStore('inventory', null);
+            this.msgText.setText('clear it out');
         })
+    }
+
+  
+
+    create() {
+
+        this.playerInventory = [];
+        this.camera = this.cameras.main;
+        this.camera.setBackgroundColor(0x00ff00);
+
+        this.background = this.add.image(512, 384, 'background');
+        this.background.setAlpha(0.5);
+
+        this.setText();
+        this.setSprites();
+
+        initInventory(this);
+
+        this.setSpriteEvents();
+
+
 
 
         // button.on('pointerdown', () => {
@@ -185,5 +203,9 @@ export class Game extends Scene {
         //     this.scene.start('GameOver');
 
         // });
+    }
+
+    update() {
+
     }
 }

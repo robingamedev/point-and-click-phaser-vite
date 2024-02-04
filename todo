@@ -11,7 +11,7 @@
 [x] Picking up and storing items.
 [x] Simple dialog system: Text boxes for character interactions.
 [x] Store picked-up items in an inventory system (array, data structure).
-[] Display a basic inventory UI showing collected items.
+[x] Display a basic inventory UI showing collected items.
 
 == Assets ==
 
