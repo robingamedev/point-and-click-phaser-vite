@@ -11,7 +11,7 @@ export class MainMenu extends Scene {
     }
 
     create() {
-        this.background = this.add.image(512, 384, 'background');
+        this.background = this.add.image(640, 360, 'background');
 
         // https://phaser.io/examples/v3/view/input/pixel-perfect/image-with-lots-of-alpha
         // this.logo = this.add.sprite(512, 300, 'logo');

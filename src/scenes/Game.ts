@@ -177,9 +177,9 @@ export class Game extends Scene {
         this.playerInventory = [];
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
-
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setAlpha(0.5);
+        
+        this.background = this.add.image(640, 360, 'background');
+        this.background.alpha = 0.7;
 
         this.setText();
         this.setSprites();
