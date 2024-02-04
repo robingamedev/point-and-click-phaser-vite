@@ -19,3 +19,7 @@ this.time.addEvent({
   }
 });
 ```
+
+## Loading json
+
+https://phaser.io/examples/v3/view/cache/json-file

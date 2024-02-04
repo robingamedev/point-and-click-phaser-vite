@@ -80,6 +80,9 @@ Design and implement a clear and intuitive inventory UI.
 Improve character portrait and dialogue box designs for readability.
 Consider adding additional UI elements like menus, maps, or quest logs (optional).
 
+Code cleanup
+[] change from this.playerInventory to this.data?
+
 ## 0.3 - Version 0.3 - Content Expansion
 
 More Puzzles & Content:
