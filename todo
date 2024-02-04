@@ -2,9 +2,9 @@
 
 ==Core Mechanics - Interaction==
 
-[] Highlight interactive objects on hover (visual change, outline, etc.).
-[] Define interactive objects within the environment (sprites, text, etc.).
-[] Handle interaction clicks: display object description, trigger events, etc.
+[x] Highlight interactive objects on hover (visual change, outline, etc.).
+[x] Define interactive objects within the environment (sprites, text, etc.).
+[x] Handle interaction clicks: display object description, trigger events, etc.
 
 == Basic Inventory System ==
 
@@ -16,6 +16,9 @@
 
 == Assets ==
 
+[] Lay out the main screen
+[] Lay out the inventory
+[] Lay out the text area
 [] Placeholder backgrounds and sprites.
 [] Basic sound effects for clicks and interactions.
 
