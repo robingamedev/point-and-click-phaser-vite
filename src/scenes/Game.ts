@@ -2,7 +2,8 @@ import { Scene } from 'phaser';
 import { createHighlightableSprite } from '../objects/createHighlightableSprite';
 import { setObjectToStore, setArrayToStore, getObjectFromStore, getArrayFromStore, checkIfValueExistsInStore } from '../utils/localStorageTools';
 import { initInventory, addInventory } from '../objects/inventory';
-import { textTitleStyle, textBodyStyle } from '../utils/other';
+import { textTitleStyle } from '../utils/other';
+import { initSceneUI, initTextUI, setTextUI } from '../objects/scene_ui';
 
 interface PlayerData {
     text: string;
@@ -41,22 +42,9 @@ export class Game extends Scene {
 
     setText() {
 
-        const msgTextStyles = {
-            ...textBodyStyle,
-            wordWrap:  { 
-                width: 900, 
-                useAdvancedWrap: true  
-            },
-            align: 'left'
-        }
+        initTextUI(this);
 
-        const extraText = "Precise control over transformations: It allows granular control over how game objects rotate and scale, enabling fine-tuning of their visual behavior. Creative effects: It can be used to achieve unique visual effects and animations by manipulating the origin point.";
-
-        this.msgText = this.add.text(60, 500, `I change based ${extraText}`, msgTextStyles);
-        this.msgText.setOrigin(0);
-
-        this.msgText.setScale(1, 1.25);
-
+        // seprate thing
         this.sceneText = this.add.text(512, 384, 'Click on the 5th one', textTitleStyle);
         this.sceneText.setOrigin(0.5);
 
@@ -95,7 +83,8 @@ export class Game extends Scene {
 
         // add to text
         this.sprite1.on('pointerup', () => {
-            this.msgText.setText('Hello Phaser World');
+            setTextUI(this, 'Narrator', 'Hello Phaser World');
+            // this.msgText.setText('Hello Phaser World');
         })
 
         // add to inventory 1 - defaults
@@ -109,8 +98,7 @@ export class Game extends Scene {
             };
 
             setObjectToStore('sprite2', playerData)
-            playerData
-            this.msgText.setText('Sprite2 is saved');
+            setTextUI(this, 'Narrator', 'Sprite2 is saved');
         })
 
         // add to inventory 1 - change value to false
@@ -121,7 +109,7 @@ export class Game extends Scene {
                 flag: false,
             })
 
-            this.msgText.setText('Sprite2 flag is false');
+            setTextUI(this, 'Narrator', 'Sprite2 flag is false');
         })
 
         // add to inventory 1 - change text to different value
@@ -131,14 +119,13 @@ export class Game extends Scene {
                 text: 'this value is now different than the previous one',
             })
 
-            this.msgText.setText('Sprite2 is now different');
+            setTextUI(this, 'Narrator', 'Sprite2 is now different');
         })
 
 
         // add to inventory 2
         this.sprite3.on('pointerup', () => {
 
-            // Save player data
             const playerData: PlayerData = {
                 text: 'this value is saved',
                 flag: false,
@@ -147,7 +134,7 @@ export class Game extends Scene {
 
             setObjectToStore('sprite3', playerData);
 
-            this.msgText.setText('Sprite3 is saved');
+            setTextUI(this, 'Narrator', 'Sprite3 is saved');
         })
 
         // add conditonal
@@ -157,16 +144,15 @@ export class Game extends Scene {
 
             if (!doesSprite2Exist && !doesSprite3Exist) {
                 console.log("Sprite 2 or 3 Doesn't exist!")
-                this.msgText.setText("Sprite 2 or 3 Doesn't exist");
+                setTextUI(this, 'Narrator', "Sprite 2 or 3 Doesn't exist");
             }
             if (doesSprite2Exist) {
-                this.msgText.setText('Sprite2 Exists');
-                // TODO: Use new addToInventory function here
+                setTextUI(this, 'Narrator', 'Sprite2 Exists');
                 addInventory(this, { 'Sprite2': 1 });
-
             }
+            
             if (doesSprite3Exist) {
-                this.msgText.setText('Sprite3 Exists');
+                setTextUI(this, 'Narrator', 'Sprite3 Exists');
                 addInventory(this, { 'Sprite3': 1 });
 
             }
@@ -185,7 +171,7 @@ export class Game extends Scene {
             setObjectToStore('sprite2', null);
             setObjectToStore('sprite3', null);
             setObjectToStore('inventory', null);
-            this.msgText.setText('clear it out');
+            setTextUI(this, 'Narrator', 'clear it out');
         })
     }
 
@@ -194,28 +180,17 @@ export class Game extends Scene {
     create() {
 
         this.playerInventory = [];
-        this.camera = this.cameras.main;
-        this.camera.setBackgroundColor(0xff0000);
-
 
         this.background = this.add.image(640, 360, 'background');
         this.background.alpha = 0.4;
 
 
-        // add the gameplay sprites
-        this.gameplay_gameUI = this.add.image(30, 20, 'gameplay_gameUI');
-        this.gameplay_inventory = this.add.image(950, 30, 'gameplay_inventory');
-        this.gameplay_textarea = this.add.image(20, 480, 'gameplay_textarea');
-        this.gameplay_map = this.add.image(1050, 530, 'gameplay_map');
-
-        // align origin
-        this.gameplay_gameUI.setOrigin(0, 0);
-        this.gameplay_inventory.setOrigin(0, 0)
-        this.gameplay_map.setOrigin(0, 0)
-        this.gameplay_textarea.setOrigin(0, 0)
+        // normal init
+        initSceneUI(this);
+  
 
         // methods
-        this.setText();
+        this.setText(); // set text
         this.setSprites();
 
 
