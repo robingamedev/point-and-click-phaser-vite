@@ -3,7 +3,7 @@ import { createHighlightableSprite } from '../objects/createHighlightableSprite'
 import { setObjectToStore, setArrayToStore, getObjectFromStore, getArrayFromStore, checkIfValueExistsInStore } from '../utils/localStorageTools';
 import { initInventory, addInventory } from '../objects/inventory';
 import { textTitleStyle } from '../utils/other';
-import { initSceneUI, initTextUI, setTextUI } from '../objects/scene_ui';
+import { initSceneUI, initTextUI, initGameImage, setTextUI, replaceGameImage } from '../objects/scene_ui';
 
 interface PlayerData {
     text: string;
@@ -38,6 +38,8 @@ export class Game extends Scene {
 
     preload() {
         this.load.image('logos', 'assets/test-logos-0.png');
+        this.load.image('castle', 'assets/scene/bard_castle4.jpeg');
+        this.load.image('battlefield', 'assets/scene/bard_battlefield2.jpeg');
     }
 
     setText() {
@@ -79,6 +81,7 @@ export class Game extends Scene {
         // disappear 
         this.sprite0.on('pointerup', () => {
             this.sprite0.destroy();
+            replaceGameImage(this, 'battlefield');
         })
 
         // add to text
@@ -188,6 +191,7 @@ export class Game extends Scene {
         // normal init
         initSceneUI(this);
   
+        initGameImage(this, 'castle', 0.30);
 
         // methods
         this.setText(); // set text
