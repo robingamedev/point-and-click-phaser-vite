@@ -18,7 +18,8 @@ export class Game extends Scene {
     sprite2a: Phaser.GameObjects.Sprite;
     sprite2b: Phaser.GameObjects.Sprite;
     sprite2c: Phaser.GameObjects.Sprite;
-    sprite3: Phaser.GameObjects.Sprite;
+    sprite3a: Phaser.GameObjects.Sprite;
+    sprite3b: Phaser.GameObjects.Sprite;
     sprite4: Phaser.GameObjects.Sprite;
     sprite5: Phaser.GameObjects.Sprite;
     sprite6: Phaser.GameObjects.Sprite;
@@ -65,15 +66,16 @@ export class Game extends Scene {
         });
 
         // Sprites
-        this.sprite0 = createHighlightableSprite(this, 100, 300, 'logos', 0);
-        this.sprite1 = createHighlightableSprite(this, 250, 300, 'logos', 1);
-        this.sprite2a = createHighlightableSprite(this, 400, 300, 'logos', 11);
-        this.sprite2b = createHighlightableSprite(this, 400, 400, 'logos', 11);
-        this.sprite2c = createHighlightableSprite(this, 400, 500, 'logos', 11);
-        this.sprite3 = createHighlightableSprite(this, 550, 300, 'logos', 12);
-        this.sprite4 = createHighlightableSprite(this, 700, 300, 'logos', 13);
-        this.sprite5 = createHighlightableSprite(this, 850, 300, 'logos', 5);
-        this.sprite6 = createHighlightableSprite(this, 1000, 300, 'logos', 6);
+        this.sprite0 = createHighlightableSprite(this, 50, 50, 'logos', 0);
+        this.sprite1 = createHighlightableSprite(this, 50, 150, 'logos', 1);
+        this.sprite2a = createHighlightableSprite(this, 50, 250, 'logos', 11);
+        this.sprite2b = createHighlightableSprite(this, 150, 250, 'logos', 11);
+        this.sprite2c = createHighlightableSprite(this, 250, 250, 'logos', 11);
+        this.sprite3a = createHighlightableSprite(this, 50, 350, 'logos', 12);
+        this.sprite3b = createHighlightableSprite(this, 150, 350, 'logos', 12);
+        this.sprite4 = createHighlightableSprite(this, 50, 450, 'logos', 13);
+        this.sprite5 = createHighlightableSprite(this, 50, 550, 'logos', 5);
+        this.sprite6 = createHighlightableSprite(this, 50, 650, 'logos', 6);
     }
 
     setSpriteEvents() {
@@ -127,7 +129,7 @@ export class Game extends Scene {
 
 
         // add to inventory 2
-        this.sprite3.on('pointerup', () => {
+        this.sprite3a.on('pointerup', () => {
 
             const playerData: PlayerData = {
                 text: 'this value is saved',
@@ -139,6 +141,23 @@ export class Game extends Scene {
 
             setTextUI(this, 'Narrator', 'Sprite3 is saved');
         })
+
+        this.sprite3b.on('pointerup', () => {
+
+            addInventory(this, {'thing1': 1});
+            addInventory(this, {'thing2': 2});
+            addInventory(this, {'thing3': 3});
+            addInventory(this, {'thing4': 4});
+            addInventory(this, {'thing5': 5});
+            addInventory(this, {'thing6': 6});
+            addInventory(this, {'thing7': 7});
+            addInventory(this, {'thing8': 8});
+            addInventory(this, {'thing9': 9});
+            addInventory(this, {'thing10': 10});
+
+            setTextUI(this, 'Narrator', 'Added all the things to the inventory');
+        })
+
 
         // add conditonal
         this.sprite4.on('pointerup', () => {
@@ -157,7 +176,6 @@ export class Game extends Scene {
             if (doesSprite3Exist) {
                 setTextUI(this, 'Narrator', 'Sprite3 Exists');
                 addInventory(this, { 'Sprite3': 1 });
-
             }
 
 
@@ -195,11 +213,12 @@ export class Game extends Scene {
 
         // methods
         this.setText(); // set text
-        this.setSprites();
 
-
+        // inventory
         initInventory(this);
 
+
+        this.setSprites();
         this.setSpriteEvents();
 
 
