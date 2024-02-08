@@ -6,7 +6,6 @@ interface CustomScene extends Phaser.Scene {
     inventoryText: Phaser.GameObjects.Text;
 }
 
-
 export function initInventory(scene: CustomScene) {
 
     // 1 - define the scene property
@@ -27,6 +26,9 @@ export function initInventory(scene: CustomScene) {
 
 
     // 4 - add buttons
+    console.log('inventory space');
+    console.log(scene.inventorySprite);
+    generateInventoryImages(scene.inventorySprite);
 }
 
 export function getInventory(): object | null {
@@ -72,3 +74,9 @@ export function addInventory(scene: CustomScene, itemToAdd: { [key: string]: num
     scene.inventoryText.setText(inventoryAsText);
 
 }
+
+
+function generateInventoryImages(imageList: []) {
+
+}
+

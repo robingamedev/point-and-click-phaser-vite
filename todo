@@ -22,7 +22,7 @@
 
 [x] Lay out the text area
 [x] Placeholder backgrounds
-[] Lay out the inventory
+[x] Lay out the inventory
 
 [] Placeholder map
 [] Basic sound effects for clicks and interactions.
@@ -47,7 +47,9 @@ Simple puzzles: Basic logic puzzles requiring item interaction.
 Create scenes where ou can navigate between places
 
 Inventory management: 
-Organize and use items from the inventory. You can scroll if there's a lot.
+There's a count of how many inventory items
+Items from the inventory are correctly shown 
+You can scroll if there's a lot.
 
 Assets:
 Finalized or improved backgrounds and sprites.

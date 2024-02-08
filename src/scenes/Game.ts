@@ -3,7 +3,7 @@ import { createHighlightableSprite } from '../objects/createHighlightableSprite'
 import { setObjectToStore, setArrayToStore, getObjectFromStore, getArrayFromStore, checkIfValueExistsInStore } from '../utils/localStorageTools';
 import { initInventory, addInventory } from '../objects/inventory';
 import { textTitleStyle } from '../utils/other';
-import { initSceneUI, initTextUI, initGameImage, setTextUI, replaceGameImage } from '../objects/scene_ui';
+import { initSceneUI, initTextUI, initGameImage, setTextUI, replaceGameImage, getInventoryX, getInventoryY } from '../objects/scene_ui';
 
 interface PlayerData {
     text: string;
@@ -30,8 +30,21 @@ export class Game extends Scene {
     gameplay_textarea: Phaser.GameObjects.Image;
     msgText: Phaser.GameObjects.Text;
     sceneText: Phaser.GameObjects.Text;
+
     inventoryText: Phaser.GameObjects.Text;
+    inventorySprite: [];
+    inventorySprite1: Phaser.GameObjects.Image;
+    inventorySprite2: Phaser.GameObjects.Image;
+    inventorySprite3: Phaser.GameObjects.Image;
+    inventorySprite4: Phaser.GameObjects.Image;
+    inventorySprite5: Phaser.GameObjects.Image;
+    inventorySprite6: Phaser.GameObjects.Image;
+    inventorySprite7: Phaser.GameObjects.Image;
+    inventorySprite8: Phaser.GameObjects.Image;
+
     playerInventory: any;
+
+
 
     constructor() {
         super('Game');
@@ -50,8 +63,6 @@ export class Game extends Scene {
         // seprate thing
         this.sceneText = this.add.text(512, 384, 'Click on the 5th one', textTitleStyle);
         this.sceneText.setOrigin(0.5);
-
-
 
     }
 
@@ -76,6 +87,31 @@ export class Game extends Scene {
         this.sprite4 = createHighlightableSprite(this, 50, 450, 'logos', 13);
         this.sprite5 = createHighlightableSprite(this, 50, 550, 'logos', 5);
         this.sprite6 = createHighlightableSprite(this, 50, 650, 'logos', 6);
+
+        // this.inventorySprite1 = this.add.sprite(200, 200, 'logos', 13);
+        // this.inventorySprite2 = this.add.sprite(300, 200, 'logos', 14);
+        // this.inventorySprite3 = this.add.sprite(400, 200, 'logos', 15);
+        // this.inventorySprite4 = this.add.sprite(500, 200, 'logos', 16);
+        // this.inventorySprite5 = this.add.sprite(600, 200, 'logos', 17);
+        // this.inventorySprite6 = this.add.sprite(700, 200, 'logos', 18);
+        // this.inventorySprite7 = this.add.sprite(800, 200, 'logos', 19);
+        // this.inventorySprite8 = this.add.sprite(900, 200, 'logos', 20);
+
+        const inventoryX = getInventoryX();
+        const inventoryY = getInventoryY();
+        const scale = 0.90;
+
+        this.inventorySprite = [
+            this.add.sprite(inventoryX + (80 * 1), inventoryY + (80 * 1), 'logos', 13).setScale(scale),
+            this.add.sprite(inventoryX + (80 * 1), inventoryY + (80 * 2), 'logos', 14).setScale(scale),
+            this.add.sprite(inventoryX + (80 * 1), inventoryY + (80 * 3), 'logos', 15).setScale(scale),
+            this.add.sprite(inventoryX + (80 * 1), inventoryY + (80 * 4), 'logos', 16).setScale(scale),
+            this.add.sprite(inventoryX + (80 * 2.5), inventoryY + (80 * 1), 'logos', 17).setScale(scale),
+            this.add.sprite(inventoryX + (80 * 2.5), inventoryY + (80 * 2), 'logos', 18).setScale(scale),
+            this.add.sprite(inventoryX + (80 * 2.5), inventoryY + (80 * 3), 'logos', 19).setScale(scale),
+            this.add.sprite(inventoryX + (80 * 2.5), inventoryY + (80 * 4), 'logos', 20).setScale(scale),
+        ];
+
     }
 
     setSpriteEvents() {
@@ -144,16 +180,16 @@ export class Game extends Scene {
 
         this.sprite3b.on('pointerup', () => {
 
-            addInventory(this, {'thing1': 1});
-            addInventory(this, {'thing2': 2});
-            addInventory(this, {'thing3': 3});
-            addInventory(this, {'thing4': 4});
-            addInventory(this, {'thing5': 5});
-            addInventory(this, {'thing6': 6});
-            addInventory(this, {'thing7': 7});
-            addInventory(this, {'thing8': 8});
-            addInventory(this, {'thing9': 9});
-            addInventory(this, {'thing10': 10});
+            addInventory(this, { 'thing1': 1 });
+            addInventory(this, { 'thing2': 2 });
+            addInventory(this, { 'thing3': 3 });
+            addInventory(this, { 'thing4': 4 });
+            addInventory(this, { 'thing5': 5 });
+            addInventory(this, { 'thing6': 6 });
+            addInventory(this, { 'thing7': 7 });
+            addInventory(this, { 'thing8': 8 });
+            addInventory(this, { 'thing9': 9 });
+            addInventory(this, { 'thing10': 10 });
 
             setTextUI(this, 'Narrator', 'Added all the things to the inventory');
         })
@@ -172,7 +208,7 @@ export class Game extends Scene {
                 setTextUI(this, 'Narrator', 'Sprite2 Exists');
                 addInventory(this, { 'Sprite2': 1 });
             }
-            
+
             if (doesSprite3Exist) {
                 setTextUI(this, 'Narrator', 'Sprite3 Exists');
                 addInventory(this, { 'Sprite3': 1 });
@@ -208,19 +244,17 @@ export class Game extends Scene {
 
         // normal init
         initSceneUI(this);
-  
         initGameImage(this, 'castle', 0.30);
+
 
         // methods
         this.setText(); // set text
 
-        // inventory
-        initInventory(this);
-
-
         this.setSprites();
         this.setSpriteEvents();
 
+        // inventory
+        initInventory(this);
 
 
 
